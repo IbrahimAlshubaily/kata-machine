@@ -6,6 +6,7 @@ module.exports = {
         "BinarySearchList",
         "TwoCrystalBalls",
         "BubbleSort",
+        "MergeSort",
         "SinglyLinkedList",
         "DoublyLinkedList",
         "Queue",
@@ -25,5 +26,4 @@ module.exports = {
         "Map",
         "MinHeap",
     ],
-}
-
+};
