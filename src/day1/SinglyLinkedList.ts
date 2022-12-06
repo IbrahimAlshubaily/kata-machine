@@ -1,19 +1,19 @@
 export default class SinglyLinkedList<T> {
     public length: number;
     private head?: SinglyListNode<T>;
+    private tail?: SinglyListNode<T>;
     constructor() {
         this.length = 0;
-        this.head = undefined;
+        this.head = this.tail = undefined;
     }
 
     prepend(item: T): void {
         this.length++;
         if (!this.head) {
-            this.head = { value: item };
+            this.head = this.tail = { value: item };
             return;
         }
-        const nxt = this.head;
-        this.head = { value: item, next: nxt };
+        this.head = { value: item, next: this.head };
     }
 
     insertAt(item: T, idx: number): void {
@@ -32,23 +32,17 @@ export default class SinglyLinkedList<T> {
         }
 
         if (currNode) {
-            const nxt = currNode.next;
-            currNode.next = { value: item, next: nxt };
+            currNode.next = { value: item, next: currNode.next };
         }
     }
 
     append(item: T): void {
-        if (!this.head) {
-            return this.prepend(item);
-        }
         this.length++;
-        let currNode = this.head;
-        while (currNode?.next) {
-            currNode = currNode.next;
-        }
-        if (currNode) {
-            const nxt = currNode.next;
-            currNode.next = { value: item, next: nxt };
+        if (this.tail) {
+            this.tail.next = { value: item };
+            this.tail = this.tail.next;
+        } else {
+            this.head = this.tail = { value: item };
         }
     }
 
@@ -56,6 +50,9 @@ export default class SinglyLinkedList<T> {
         if (this.head?.value === item) {
             this.length--;
             this.head = this.head.next;
+            if (this.length === 0) {
+                this.tail = undefined;
+            }
             return item;
         }
         let currNode = this.head;
@@ -74,6 +71,11 @@ export default class SinglyLinkedList<T> {
         if (idx === 0) {
             return this.head?.value;
         }
+
+        if (idx === this.length - 1) {
+            return this.tail?.value;
+        }
+
         let currNode = this.head;
         while (currNode) {
             if (idx === 0) {
