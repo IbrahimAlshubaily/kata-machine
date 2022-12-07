@@ -1,5 +1,3 @@
-import SinglyLinkedList from "./SinglyLinkedList";
-
 export default class Queue<T> {
     public length: number;
     private head?: SinglyListNode<T>;
