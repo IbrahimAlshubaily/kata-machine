@@ -68,23 +68,11 @@ export default class SinglyLinkedList<T> {
     }
 
     get(idx: number): T | undefined {
-        if (idx === 0) {
-            return this.head?.value;
-        }
-
-        if (idx === this.length - 1) {
-            return this.tail?.value;
-        }
-
         let currNode = this.head;
-        while (currNode) {
-            if (idx === 0) {
-                return currNode.value;
-            }
-            idx--;
+        while (idx-- > 0 && currNode) {
             currNode = currNode.next;
         }
-        return;
+        return currNode?.value;
     }
 
     removeAt(idx: number): T | undefined {

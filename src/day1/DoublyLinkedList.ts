@@ -81,16 +81,10 @@ export default class DoublyLinkedList<T> {
     }
     get(idx: number): T | undefined {
         let currNode = this.head;
-        let out: T | undefined = undefined;
-        while (idx >= 0 && currNode) {
-            if (idx === 0) {
-                out = currNode.value;
-                break;
-            }
-            idx--;
+        while (idx-- > 0 && currNode) {
             currNode = currNode.next;
         }
-        return out;
+        return currNode?.value;
     }
 
     removeAt(idx: number): T | undefined {
