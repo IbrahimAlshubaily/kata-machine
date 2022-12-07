@@ -1,25 +1,28 @@
 export default function merge_sort(arr: number[]): number[] {
-    if (arr.length === 1) return arr;
+    return __merge_sort__(arr, 0, arr.length);
+}
 
-    const mid = Math.floor(arr.length / 2);
-    const left = merge_sort(arr.slice(0, mid));
-    const right = merge_sort(arr.slice(mid, arr.length));
+function __merge_sort__(arr: number[], start: number, end: number): number[] {
+    if (start >= end - 1) return [arr[start]];
+    const mid = start + Math.floor((end - start) / 2);
+    const left = __merge_sort__(arr, start, mid);
+    const right = __merge_sort__(arr, mid, end);
     return merge(right, left);
 }
 
 function merge(a: number[], b: number[]): number[] {
     let l = 0;
     let r = 0;
-    const out = [];
+    let idx = 0;
+    const out = Array(a.length + b.length);
     while (l < a.length && r < b.length) {
         if (a[l] < b[r]) {
-            out.push(a[l++]);
+            out[idx++] = a[l++];
         } else {
-            out.push(b[r++]);
+            out[idx++] = b[r++];
         }
     }
-    while (l < a.length) out.push(a[l++]);
-    while (r < b.length) out.push(b[r++]);
-    //console.assert(out.length === a.length + b.length);
+    while (l < a.length) out[idx++] = a[l++];
+    while (r < b.length) out[idx++] = b[r++];
     return out;
 }
