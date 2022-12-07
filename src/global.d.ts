@@ -34,8 +34,8 @@ declare type AdjacencyMatrix = number[][]; // A 1 means connected
 
 declare type BinaryNode<T> = {
     value: T;
-    left: BinaryNode<T> | null;
-    right: BinaryNode<T> | null;
+    left?: BinaryNode<T>;
+    right?: BinaryNode<T>;
 };
 
 declare type GeneralNode<T> = {
