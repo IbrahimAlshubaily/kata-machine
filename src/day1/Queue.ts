@@ -27,7 +27,9 @@ export default class Queue<T> {
         this.length--;
         const out = this.head.value;
         this.head = this.head.next;
-        if (this.length === 0) this.tail = undefined;
+        if (this.length === 0) {
+            this.tail = undefined;
+        }
         return out;
     }
 
