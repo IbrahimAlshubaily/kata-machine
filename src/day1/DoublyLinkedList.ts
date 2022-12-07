@@ -68,15 +68,16 @@ export default class DoublyLinkedList<T> {
 
         let idx = 0;
         let currNode = this.head;
+        let out: T | undefined = undefined;
         while (currNode) {
             if (currNode.value === item) {
+                out = this.removeAt(idx);
                 break;
             }
             currNode = currNode.next;
             idx++;
         }
-        const foundIdx = idx > 0 && idx < this.length;
-        return foundIdx ? this.removeAt(idx) : undefined;
+        return out;
     }
     get(idx: number): T | undefined {
         let currNode = this.head;
@@ -93,33 +94,37 @@ export default class DoublyLinkedList<T> {
     }
 
     removeAt(idx: number): T | undefined {
-        let out: T | undefined = undefined;
+        this.length--;
         if (idx === 0) {
-            out = this.head?.value;
-            if (this.length === 1 && this.head) {
+            const out = this.head?.value;
+            if (this.length === 0) {
                 this.head = this.tail = undefined;
             } else {
                 this.head = this.head?.next;
                 if (this.head) this.head.prev = undefined;
             }
-        } else if (idx === this.length - 1) {
-            out = this.tail?.value;
+            return out;
+        }
+
+        if (idx === this.length) {
+            const out = this.tail?.value;
             this.tail = this.tail?.prev;
             if (this.tail) this.tail.next = undefined;
-        } else {
-            let currNode = this.head;
-            while (idx >= 0 && currNode) {
-                if (idx === 0) {
-                    out = currNode.value;
-                    if (currNode.prev) currNode.prev.next = currNode.next;
-                    if (currNode.next) currNode.next.prev = currNode.prev;
-                    currNode.prev = currNode.next = undefined;
-                }
-                idx--;
-                currNode = currNode.next;
-            }
+            return out;
         }
-        this.length--;
-        return out;
+
+        let currNode = this.head;
+        while (idx >= 0 && currNode) {
+            if (idx === 0) {
+                const out = currNode.value;
+                if (currNode.prev) currNode.prev.next = currNode.next;
+                if (currNode.next) currNode.next.prev = currNode.prev;
+                currNode.prev = currNode.next = undefined;
+                return out;
+            }
+            idx--;
+            currNode = currNode.next;
+        }
+        return;
     }
 }
