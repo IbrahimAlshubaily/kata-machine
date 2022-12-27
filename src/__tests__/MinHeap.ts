@@ -5,6 +5,7 @@ test("min heap", function () {
 
     expect(heap.length).toEqual(0);
 
+    debugger;
     heap.insert(5);
     heap.insert(3);
     heap.insert(69);
@@ -26,5 +27,3 @@ test("min heap", function () {
     expect(heap.delete()).toEqual(420);
     expect(heap.length).toEqual(0);
 });
-
-
